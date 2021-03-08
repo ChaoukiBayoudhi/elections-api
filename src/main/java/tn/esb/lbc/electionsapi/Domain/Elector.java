@@ -6,7 +6,11 @@ import tn.esb.lbc.electionsapi.Enumerations.Level;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +25,7 @@ public class Elector {
     private int age;
     private String state;
     private Level scientificLevel;
+    @ManyToMany
+    private Set<Candidate> candidates =new HashSet<>();
 
 }

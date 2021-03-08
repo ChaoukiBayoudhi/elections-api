@@ -5,9 +5,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @NoArgsConstructor //generates a constructon without parameters
-@AllArgsConstructor //generates constructor with all attributes as parameters
+@RequiredArgsConstructor
+
+//@AllArgsConstructor //generates constructor with all attributes as parameters
 @Data //generates all getters and setters
 //@Getter //generates only getters
 //@Setter //generates only seeters
@@ -27,9 +32,27 @@ public class Candidate {
     //@GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Include
     private Long id;
+    @NonNull
     private String name;
+    @NonNull
     private LocalDate birthDate;
     private int listPosition;
     private byte[] photo;
+    /*Create table Candidate_Openion(
+       candidate_id Number,
+       elector_id Number,
+       constraint pk_candelect primary key(id_Elect, id_cand)
+       constraint fk_candelect_candidate Foreign key candidate_id references Candidate(id)
+       constraint fk_candelect_elector Foreign key elector_id references Elector(id)
+);
+*/
+    @ManyToMany
+    @JoinTable(name = "Candidate_Openion",
+    joinColumns = @JoinColumn(name="candidate_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "elector_id", referencedColumnName = "id")
+    )
+    private Set<Elector> electors=new HashSet<>();
+    @OneToMany(mappedBy = "candidateOwner", cascade = CascadeType.ALL)
+    private Set<Activity> activities=new HashSet<>();
 
 }
