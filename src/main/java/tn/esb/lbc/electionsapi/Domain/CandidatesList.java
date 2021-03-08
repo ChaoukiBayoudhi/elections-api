@@ -2,10 +2,9 @@ package tn.esb.lbc.electionsapi.Domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -27,4 +26,8 @@ public class CandidatesList {
     private String electionStatement;
     @Lob
     private byte[] electionSymbol;
+    @OneToMany(mappedBy = "listOfCandidate", cascade = CascadeType.ALL)
+    private Set<Candidate> canditates=new HashSet<>();
+    @OneToMany(mappedBy = "list")
+    private Set<ElectorList> lists=new HashSet<>();
 }

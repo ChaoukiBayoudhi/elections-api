@@ -3,10 +3,7 @@ package tn.esb.lbc.electionsapi.Domain;
 import lombok.*;
 import tn.esb.lbc.electionsapi.Enumerations.Level;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -27,5 +24,8 @@ public class Elector {
     private Level scientificLevel;
     @ManyToMany
     private Set<Candidate> candidates =new HashSet<>();
+
+    @OneToMany(mappedBy = "elector")
+    private Set<ElectorList> lists=new HashSet<>();
 
 }

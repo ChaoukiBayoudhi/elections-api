@@ -3,10 +3,7 @@ package tn.esb.lbc.electionsapi.Domain;
 import lombok.NonNull;
 import tn.esb.lbc.electionsapi.Enumerations.JustificationType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
 
@@ -17,4 +14,7 @@ public class Justification {
     @Lob
     private byte[] content;
     private JustificationType type;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "activity_id", referencedColumnName = "id")
+    private Activity activity;
 }

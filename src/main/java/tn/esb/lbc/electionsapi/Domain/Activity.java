@@ -30,6 +30,8 @@ public class Activity {
     @ManyToOne
     @JoinColumn(name="candidate_id",referencedColumnName = "id")
     private Candidate candidateOwner;
+    @OneToOne
+    private Justification activityJustification;
 
     public Activity(@NonNull String title, @NonNull LocalDateTime activityDate, double duration, String place, @NonNull ActivityType type) {
         this.title = title;

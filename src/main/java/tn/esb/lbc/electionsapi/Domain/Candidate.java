@@ -54,5 +54,8 @@ public class Candidate {
     private Set<Elector> electors=new HashSet<>();
     @OneToMany(mappedBy = "candidateOwner", cascade = CascadeType.ALL)
     private Set<Activity> activities=new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name="List_id", referencedColumnName = "id")
+    private CandidatesList listOfCandidate;
 
 }
