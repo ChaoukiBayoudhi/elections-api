@@ -31,7 +31,7 @@ public class Activity {
     @NonNull
     @Enumerated(EnumType.STRING)
     private ActivityType type;
-    @JsonIgnore
+    @JsonIgnore //ignorer l'attribut ci-dessous dans l'affichage Json
     @ManyToOne
     @JoinColumn(name="candidate_id",referencedColumnName = "id")
     private Candidate candidateOwner;

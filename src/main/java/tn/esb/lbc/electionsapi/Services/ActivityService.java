@@ -61,7 +61,8 @@ public class ActivityService {
         A1.setTitle(newActivity.getTitle());
         A1.setPlace(newActivity.getPlace());
         A1.setActivityDate(newActivity.getActivityDate());
-        //...
+        A1.setDuration(newActivity.getDuration());
+
         activityRepos.save(A1);
         return new ResponseEntity<Activity>(A1,HttpStatus.OK);
     }
