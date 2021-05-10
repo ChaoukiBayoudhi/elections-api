@@ -37,7 +37,7 @@ public class ActivityController {
     //@RequestMapping(value="/add", method = RequestMethod.POST)
     //RequestMapping peut jouer le role de GetMapping, PostMapping,...
     //La méthode par default de RequestMapping est GET
-    public Activity addAnActivity(@RequestBody Activity A){
+    public ResponseEntity<Activity> addAnActivity(@RequestBody Activity A){
         return activityServ.addActivity(A);
     }
     @GetMapping("/{id}")

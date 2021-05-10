@@ -16,6 +16,7 @@ import tn.esb.lbc.electionsapi.Repository.ActivityRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional //les méthodes de ce services fonctionnront sous le principe de transaction
@@ -38,9 +39,22 @@ public class ActivityService {
     {
         return activityRepos.findAll();
     }
-    public Activity addActivity(Activity A){
+    public ResponseEntity<Activity> addActivity(Activity A){
+        //prints activities titles on Activity repository that are like the activity A
+//        activityRepos.findAll().stream() //conversion from List to Stream
+//                .filter(x->x.getTitle().equalsIgnoreCase(A.getTitle())&&x.getActivityDate().isEqual(A.getActivityDate())&&x.getPlace().equalsIgnoreCase(A.getPlace()))
+//                //for localdate comparation we have ld1.isBefore(ld2) and ld1.isAffter(ld2)
+//                .map(x->x.getTitle())
+//                .forEach(System.out::println);// this example shows title activities having the same title, activity date and place as the activity A
+
+
+        List<Activity> lst=activityRepos.findAll().stream()
+                .filter(x->x.getTitle().equalsIgnoreCase(A.getTitle())&&x.getActivityDate().isEqual(A.getActivityDate())&&x.getPlace().equalsIgnoreCase(A.getPlace()))
+                .collect(Collectors.toList());//conversion from Stream to List
+        if (!lst.isEmpty())
+            return new ResponseEntity(null,HttpStatus.BAD_REQUEST);
         log.debug("Request to create Activity : {}", A);
-        return activityRepos.save(A);
+        return new ResponseEntity(activityRepos.save(A),HttpStatus.CREATED);
     }
     @Transactional(readOnly = true)
     public Optional<Activity> getActivityById(Long id)
